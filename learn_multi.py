@@ -8,14 +8,15 @@ def do_something():
     time.sleep(1)
     print('Done sleeping.')
 
-p1 = multiprocessing.Process(target=do_something)
-p2 = multiprocessing.Process(target=do_something)
+processes = []
 
-p1.start()
-p2.start()
+for _ in range(10):
+    p = multiprocessing.Process(target=do_something)
+    p.start()
+    processes.append(p)
 
-p1.join()
-p2.join()
+for process in processes:
+    process.join()
 
 finish = time.perf_counter()
 
